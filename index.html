@@ -1,96 +1,92 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Pembukuan Takmir Masjid Baitussalam</title>
 
   <!-- PWA -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2e7d32">
-  <link rel="icon" href="assets/logo-192.png" type="image/png">
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#064e3b" />
+  <link rel="icon" href="assets/logo-192.png" type="image/png" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 
-  <!-- LIBRARY PDF -->
+  <!-- PDF LIB -->
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.29/dist/jspdf.plugin.autotable.min.js"></script>
 </head>
 
 <body>
 
-  <!-- ===================== -->
-  <!-- HEADER + LOGO -->
-  <!-- ===================== -->
-  <header style="text-align:center; margin-bottom:20px;">
-    <img src="assets/logo-192.png" alt="Logo Masjid" style="width:80px; margin-bottom:10px;">
+  <!-- HEADER -->
+  <header class="app-header">
+    <img src="assets/logo-192.png" alt="Logo Masjid">
     <h1>Takmir Masjid Baitussalam</h1>
     <p>Pembukuan Keuangan</p>
   </header>
 
-  <!-- ===================== -->
-  <!-- TABEL DATA -->
-  <!-- ===================== -->
-  <section class="form-section">
+  <!-- MAIN -->
+  <main class="container">
 
-    <table id="dataTable">
-      <thead>
-        <tr>
-          <th>Tanggal</th>
-          <th>Jenis</th>
-          <th>Jumlah (Rp)</th>
-          <th>Keterangan</th>
-          <th>Hapus</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <!-- FORM + TABLE -->
+    <section class="form-section">
 
-    <!-- ===================== -->
-    <!-- FORM INPUT -->
-    <!-- ===================== -->
-    <div class="form-inputs">
-      <input type="date" id="tanggal">
+      <!-- FORM INPUT -->
+      <div class="form-inputs">
+        <input type="date" id="tanggal">
 
-      <select id="jenis">
-        <option value="Pemasukan">Pemasukan</option>
-        <option value="Pengeluaran">Pengeluaran</option>
-      </select>
+        <select id="jenis">
+          <option value="Pemasukan">Pemasukan</option>
+          <option value="Pengeluaran">Pengeluaran</option>
+        </select>
 
-      <input type="number" id="jumlah" placeholder="Jumlah Rupiah">
-      <input type="text" id="keterangan" placeholder="Keterangan">
+        <input type="number" id="jumlah" placeholder="Jumlah Rupiah">
+        <input type="text" id="keterangan" placeholder="Keterangan">
 
-      <button onclick="tambahData()">Tambah Data</button>
-      <button class="btn-danger" onclick="hapusSemua()">Hapus Semua</button>
-      <button class="btn-primary" onclick="exportPDF()">Export PDF</button>
-    </div>
+        <button onclick="tambahData()">Tambah Data</button>
+        <button class="btn-danger" onclick="hapusSemua()">Hapus Semua</button>
+        <button class="btn-primary" onclick="exportPDF()">Export PDF</button>
+      </div>
 
-  </section>
+      <!-- TABLE -->
+      <div class="table-wrapper">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Jenis</th>
+              <th>Jumlah (Rp)</th>
+              <th>Keterangan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
 
-  <!-- ===================== -->
-  <!-- INFO TOTAL -->
-  <!-- ===================== -->
-  <section class="info-section">
-    <p>Total Pemasukan : <span id="totalMasuk">0</span></p>
-    <p>Total Pengeluaran : <span id="totalKeluar">0</span></p>
-    <p>Saldo Akhir : <span id="saldoAkhir">0</span></p>
-  </section>
+    </section>
 
-  <!-- ===================== -->
-  <!-- SCRIPT APP -->
-  <!-- ===================== -->
+    <!-- INFO TOTAL -->
+    <section class="info-section">
+      <p>Total Pemasukan: <span id="totalMasuk">0</span></p>
+      <p>Total Pengeluaran: <span id="totalKeluar">0</span></p>
+      <p><strong>Saldo Akhir: <span id="saldoAkhir">0</span></strong></p>
+    </section>
+
+  </main>
+
+  <!-- SCRIPT -->
   <script src="script.js"></script>
 
-  <!-- ===================== -->
   <!-- SERVICE WORKER -->
-  <!-- ===================== -->
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js")
-        .then(() => console.log("Service Worker Baitussalam aktif"))
-        .catch(err => console.log("SW Error:", err));
+        .then(() => console.log("Service Worker aktif"))
+        .catch(err => console.error("SW error:", err));
     }
   </script>
 
