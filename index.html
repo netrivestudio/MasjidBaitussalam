@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pembukuan Takmir Masjid Baitussalam</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2e7d32">
+  <link rel="icon" href="assets/logo-192.png" type="image/png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- LIBRARY PDF -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.29/dist/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ===================== -->
+  <!-- HEADER + LOGO -->
+  <!-- ===================== -->
+  <header style="text-align:center; margin-bottom:20px;">
+    <img src="assets/logo-192.png" alt="Logo Masjid" style="width:80px; margin-bottom:10px;">
+    <h1>Takmir Masjid Baitussalam</h1>
+    <p>Pembukuan Keuangan</p>
+  </header>
+
+  <!-- ===================== -->
+  <!-- TABEL DATA -->
+  <!-- ===================== -->
+  <section class="form-section">
+
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Jenis</th>
+          <th>Jumlah (Rp)</th>
+          <th>Keterangan</th>
+          <th>Hapus</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- ===================== -->
+    <!-- FORM INPUT -->
+    <!-- ===================== -->
+    <div class="form-inputs">
+      <input type="date" id="tanggal">
+
+      <select id="jenis">
+        <option value="Pemasukan">Pemasukan</option>
+        <option value="Pengeluaran">Pengeluaran</option>
+      </select>
+
+      <input type="number" id="jumlah" placeholder="Jumlah Rupiah">
+      <input type="text" id="keterangan" placeholder="Keterangan">
+
+      <button onclick="tambahData()">Tambah Data</button>
+      <button class="btn-danger" onclick="hapusSemua()">Hapus Semua</button>
+      <button class="btn-primary" onclick="exportPDF()">Export PDF</button>
+    </div>
+
+  </section>
+
+  <!-- ===================== -->
+  <!-- INFO TOTAL -->
+  <!-- ===================== -->
+  <section class="info-section">
+    <p>Total Pemasukan : <span id="totalMasuk">0</span></p>
+    <p>Total Pengeluaran : <span id="totalKeluar">0</span></p>
+    <p>Saldo Akhir : <span id="saldoAkhir">0</span></p>
+  </section>
+
+  <!-- ===================== -->
+  <!-- SCRIPT APP -->
+  <!-- ===================== -->
+  <script src="script.js"></script>
+
+  <!-- ===================== -->
+  <!-- SERVICE WORKER -->
+  <!-- ===================== -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js")
+        .then(() => console.log("Service Worker Baitussalam aktif"))
+        .catch(err => console.log("SW Error:", err));
+    }
+  </script>
+
+</body>
+</html>
